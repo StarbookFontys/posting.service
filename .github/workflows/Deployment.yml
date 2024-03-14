@@ -1,0 +1,42 @@
+name: Docker CD
+
+on:
+  pull_request:
+    branches:
+      - Main
+  
+jobs:
+  Build_and_deploy:
+    runs-on: self-hosted
+    steps:  
+      - uses: actions/checkout@v3
+      - uses: jitterbit/get-changed-files@v1
+        id: posting
+        with:
+          format: space-delimited
+      - name: Rebuild posting-service
+        if: contains(steps.posting.outputs.modified, 'Posting-service')
+        run: |
+          docker login --username coen-donk --password ${{ secrets.POSTING_SERVICE_SECRET }} ghcr.io
+          docker build ./. --tag ghcr.io/coen-donk/posting-service:latest
+          docker push ghcr.io/coen-donk/posting-service:latest
+          docker stop posting-service
+          docker remove posting-service
+          docker run -d --name posting-service -p 8080:80 --network proxynetwork ghcr.io/coen-donk/posting-service:latest
+
+      - uses: actions/checkout@v3
+      - uses: jitterbit/get-changed-files@v1
+        id: gateway
+        with:
+          format: space-delimited
+      - name: Rebuild gateway
+        if: contains(steps.gateway.outputs.modified, 'Gateway')
+        run: |
+          docker login --username coen-donk --password ${{ secrets.POSTING_SERVICE_SECRET }} ghcr.io
+          docker build -t gateway -f dockerfileyarp .
+          docker push . ghcr.io/coen-donk/gateway:latest
+          docker stop gateway
+          docker remove gateway
+          docker run -d --name gateway -p 5001:80 --network proxynetwork gateway
+          
+          
