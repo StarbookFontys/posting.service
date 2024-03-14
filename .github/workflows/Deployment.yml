@@ -10,6 +10,7 @@ jobs:
     runs-on: self-hosted
     steps:  
       - uses: actions/checkout@v3
+      - name: Rebuild posting service
         run: |
           docker login --username coen-donk --password ${{ secrets.PACKAGE_SECRET }} ghcr.io
           docker build ./. --tag ghcr.io/coen-donk/posting-service:latest
