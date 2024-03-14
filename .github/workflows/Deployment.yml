@@ -2,8 +2,10 @@ name: Docker CD
 
 on:
   pull_request:
+    types:
+     - closed
     branches:
-      - Main
+     - main
   
 jobs:
   Build_and_deploy:
