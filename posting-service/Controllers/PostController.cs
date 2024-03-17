@@ -24,10 +24,17 @@ namespace posting_service.Controllers
 		}
 		
 		// GET api/<PostController>/5
-		[HttpGet("{id}")]
-		public string Get(int id)
+		[HttpGet("{title}/{description}")]
+		public Models.PostModel Get(string title, string description)
 		{
-			return "value";
+			Models.PostModel ExamplePost = new Models.PostModel
+			{
+				title = title,
+				Author = "Coen",
+				Description = description,
+				postdate = Convert.ToString(DateTime.Today),
+			};
+			return ExamplePost;
 		}
 
 		// POST api/<PostController>
