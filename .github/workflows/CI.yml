@@ -57,5 +57,15 @@ jobs:
           dotnet build
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
+      - uses: actions/checkout@master
+      - name: Setup .NET
+        uses: actions/setup-dotnet@3.0.3
+      - name: Restore dependencies
+        run: dotnet restore ./path/to/your.sln
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/dotnet@master
+        env:
+          SNYK_TOKEN: 2a5d4af2-16ee-41e4-89b2-1fa146212e53
+
                   
     
