@@ -63,8 +63,9 @@ jobs:
       - uses: actions/checkout@v4
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
-      - name: Restore dependencies
-        run: dotnet restore ./posting-service-tests
+      - name: Install dependencies
+        run: dotnet restore
+        working-directory: ./posting-service-tests
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/dotnet@master
         continue-on-error: true
