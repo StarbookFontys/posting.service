@@ -59,9 +59,9 @@ jobs:
 
       - uses: actions/checkout@master
       - name: Setup .NET
-        uses: actions/setup-dotnet@3.0.3
+        uses: actions/setup-dotnet@v3
       - name: Restore dependencies
-        run: dotnet restore ./path/to/your.sln
+        run: dotnet restore ./posting-service-tests
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/dotnet@master
         env:
