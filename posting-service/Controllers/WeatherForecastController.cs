@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using posting_service.DatabaseCom;
 
 namespace posting_service.Controllers
 {
@@ -27,6 +28,7 @@ namespace posting_service.Controllers
 				TemperatureC = Random.Shared.Next(-20, 55),
 				Summary = Summaries[Random.Shared.Next(Summaries.Length)]
 			})
+
 			.ToArray();
 		}
 	}
