@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 using posting_service.DatabaseCom;
+using posting_service.Business;
+using Microsoft.Extensions.Configuration;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -38,6 +40,16 @@ namespace posting_service.Controllers
 			return ExamplePost;
 		}
 
+		[HttpGet("{author}")]
+		public List<Models.PostModel> GetUserPosts(string author) 
+		{
+			Connection con = new Connection("server=localhost;port=3307;database=posts;user=root;password=#Cpmaximerobin02");
+			PostData PostData = new PostData(con);
+			PostManager Manager = new PostManager(PostData);
+
+			return Manager.GetUserPosts(author);
+		}
+
 		// POST api/<PostController>
 		[HttpPost("/P/{title}/{author}/{description}")]	
 		public void Post(string title, string description, string author)
@@ -45,9 +57,10 @@ namespace posting_service.Controllers
 			string DateFormat = DateTime.Today.ToString("yyyy-MM-dd");
 			Connection con = new Connection("server=host.docker.internal;port=3307;database=posts;user=root;password=#Cpmaximerobin02");
 
-			PostingHandler handler = new PostingHandler(con);
+			PostData PostData = new PostData(con);
+			PostManager Manager = new PostManager(PostData);
 
-			handler.CreatePost(title, description, DateFormat, author);
+			Manager.CreatePost(title, description, DateFormat, author);
 		}
 
 		// PUT api/<PostController>/5
