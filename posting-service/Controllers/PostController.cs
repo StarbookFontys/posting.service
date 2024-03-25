@@ -39,7 +39,7 @@ namespace posting_service.Controllers
 		}
 
 		// POST api/<PostController>
-		[HttpPost("{title}/{author}/{description}")]	
+		[HttpPost("/P/{title}/{author}/{description}")]	
 		public void Post(string title, string description, string author)
 		{
 			string DateFormat = DateTime.Today.ToString("yyyy-MM-dd");
