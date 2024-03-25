@@ -56,29 +56,6 @@ jobs:
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"Sample" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
           dotnet build
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
-  snyk:
-    name: snyk scan
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
-      - name: Install dependencies
-        run: dotnet restore
-        working-directory: ./posting-service-tests
-      - name: Install Node.js and npm
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-
-      - name: Install Snyk CLI
-        run: npm install -g snyk
-
-      - name: Authenticate Snyk
-        run: snyk auth 2a5d4af2-16ee-41e4-89b2-1fa146212e53
-
-      - name: Run Snyk Test
-        run: snyk test
       
 
                   
