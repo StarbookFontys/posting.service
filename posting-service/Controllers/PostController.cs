@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
+using posting_service.DatabaseCom;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -38,9 +39,15 @@ namespace posting_service.Controllers
 		}
 
 		// POST api/<PostController>
-		[HttpPost]	
-		public void Post([FromBody] string value)
+		[HttpPost("{title}/{author}/{description}")]	
+		public void Post(string title, string description, string author)
 		{
+			string DateFormat = DateTime.Today.ToString("yyyy-MM-dd");
+			Connection con = new Connection("server=localhost;port=3307;database=posts;user=root;password=#Cpmaximerobin02");
+
+			PostingHandler handler = new PostingHandler(con);
+
+			handler.CreatePost(title, description, DateFormat, author);
 		}
 
 		// PUT api/<PostController>/5
