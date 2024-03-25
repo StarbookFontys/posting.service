@@ -43,7 +43,7 @@ namespace posting_service.Controllers
 		public void Post(string title, string description, string author)
 		{
 			string DateFormat = DateTime.Today.ToString("yyyy-MM-dd");
-			Connection con = new Connection("server=localhost;port=3307;database=posts;user=root;password=#Cpmaximerobin02");
+			Connection con = new Connection("server=host.docker.internal;port=3307;database=posts;user=root;password=#Cpmaximerobin02");
 
 			PostingHandler handler = new PostingHandler(con);
 
