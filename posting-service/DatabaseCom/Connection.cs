@@ -26,7 +26,6 @@ namespace posting_service.DatabaseCom
 			{
 				_connection.Close();
 			}
-			//"server=localhost;port=3307;database=posts;user=root;password=#Cpmaximerobin02"
 		}
 
         public MySqlConnection GetConnectionString() { return _connection; }
