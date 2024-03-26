@@ -43,7 +43,7 @@ namespace posting_service.Controllers
 		[HttpGet("{author}")]
 		public List<Models.PostModel> GetUserPosts(string author) 
 		{
-			Connection con = new Connection("server=localhost;port=3307;database=posts;user=root;password=#Cpmaximerobin02");
+			Connection con = new Connection("server=host.docker.internal;port=3307;database=posts;user=root;password=#Cpmaximerobin02");
 			PostData PostData = new PostData(con);
 			PostManager Manager = new PostManager(PostData);
 
