@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postingservice
+  labels:
+    app: api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app:  api
+    spec:
+      containers:
+      - name: posting-service
+        image: ghcr.io/coen-donk/posting-service:latest
+        ports:
+        - containerPort: 4002
+        resources:
+          limits:
+            memory: 512Mi
+            cpu: "1"
+      imagePullSecrets:
+      - name: ghcr-serect
