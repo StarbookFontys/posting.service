@@ -56,7 +56,15 @@ jobs:
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"Sample" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
           dotnet build
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
-      
+      - name: Download Dependency-Check
+        run: |
+          wget https://dl.bintray.com/jeremy-long/owasp/dependency-check-7.0.0-release.zip
+          unzip dependency-check-7.0.0-release.zip
+
+      - name: Run Dependency-Check
+        run: |
+          ./dependency-check/bin/dependency-check.sh --scan ./posting-service --format HTML --out dependency-check-report.html
+        
 
                   
     
