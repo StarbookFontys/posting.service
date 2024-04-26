@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: posting-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: posting-service
+  template:
+    metadata:
+      labels:
+        app: posting-service
+    spec:
+      containers:
+      - name: postingservice
+        image: ghcr.io/coen-donk/posting-service
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: "100m"  # Request 0.1 CPU
+          limits:
+            cpu: "1"     # Maximum 1 CPU
+      imagePullSecrets:
+      - name: ghcr.io
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: posting-service
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: posting-service
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 50
