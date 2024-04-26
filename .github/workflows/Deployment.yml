@@ -20,4 +20,5 @@ jobs:
           docker stop posting-service
           docker remove posting-service
           docker run -d --name posting-service -p 8080:80 --network proxynetwork ghcr.io/coen-donk/posting-service:latest
+          kubectl apply -f PostingServiceDep.yaml
           
