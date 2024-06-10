@@ -27,6 +27,8 @@ if (app.Environment.IsDevelopment())
 	app.UseSwaggerUI();
 }
 
+app.MapGet("/", () => "The authentication api. Hello {target}!");
+
 app.UseMetricServer();
 
 app.UseHttpsRedirection();
