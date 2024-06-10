@@ -43,7 +43,7 @@ namespace posting_service.Controllers
 		[HttpGet("{author}")]
 		public List<Models.PostModel> GetUserPosts(string author) 
 		{
-			Connection con = new Connection("server=host.docker.internal;port=3307;database=posts;user=root;password=#Cpmaximerobin02");
+			Connection con = new Connection("Host=firstcluster-14261.8nj.gcp-europe-west1.cockroachlabs.cloud;Port=26257;Database=postsdb;Password=pM6WlZHYezsnKfLKdW5-Cw;SSL Mode=VerifyFull;Username=coen");
 			PostData PostData = new PostData(con);
 			PostManager Manager = new PostManager(PostData);
 
@@ -55,7 +55,7 @@ namespace posting_service.Controllers
 		public void Post(string title, string description, string author)
 		{
 			string DateFormat = DateTime.Today.ToString("yyyy-MM-dd");
-			Connection con = new Connection("server=host.docker.internal;port=3307;database=posts;user=root;password=#Cpmaximerobin02");
+			Connection con = new Connection("Host=firstcluster-14261.8nj.gcp-europe-west1.cockroachlabs.cloud;Port=26257;Database=postsdb;Password=pM6WlZHYezsnKfLKdW5-Cw;SSL Mode=VerifyFull;Username=coen");
 
 			PostData PostData = new PostData(con);
 			PostManager Manager = new PostManager(PostData);
@@ -67,12 +67,14 @@ namespace posting_service.Controllers
 		[HttpPut("{id}")]
 		public void Put(int id, [FromBody] string value)
 		{
+
 		}
 
 		// DELETE api/<PostController>/5
 		[HttpDelete("{id}")]
 		public void Delete(int id)
 		{
+
 		}
 	}
 }
