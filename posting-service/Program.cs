@@ -7,6 +7,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+var url = $"http://0.0.0.0:{port}";
+
 builder.Services.AddCors(options =>
 {
 	options.AddPolicy("AllowAll", builder =>
@@ -38,4 +41,4 @@ app.UseCors(x => x
 		   .AllowAnyOrigin()
 		   .SetIsOriginAllowed(origin => true));
 
-app.Run();
+app.Run(url);
