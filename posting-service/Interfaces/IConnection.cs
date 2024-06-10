@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using Npgsql;
 
 namespace posting_service.Interfaces
 {
@@ -6,6 +7,6 @@ namespace posting_service.Interfaces
 	{
 		void Open();
 		void Close();
-		MySqlConnection GetConnectionString();
+		NpgsqlConnection GetConnectionString();
 	}
 }
